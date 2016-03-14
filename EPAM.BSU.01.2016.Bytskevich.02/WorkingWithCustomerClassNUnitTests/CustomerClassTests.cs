@@ -17,24 +17,41 @@ namespace WorkingWithCustomerClassNUnitTests
         {
             get
             {
-                yield return new TestCaseData(new Customer("Darth Vader", "+1 (111) 111-1111", 123456789), null, null).Returns("Customer record: Darth Vader, 123,456,789.00, +1 (111) 111-1111");
-                yield return new TestCaseData(new Customer("Darth Vader", "+1 (111) 111-1111", 123456789), "NRP", null).Returns("Customer record: Darth Vader, 123,456,789.00, +1 (111) 111-1111");
-                yield return new TestCaseData(new Customer("Darth Vader", "+1 (111) 111-1111", 123456789), "NR", null).Returns("Customer record: Darth Vader, 123,456,789.00");
-                yield return new TestCaseData(new Customer("Darth Vader", "+1 (111) 111-1111", 123456789), "NP", null).Returns("Customer record: Darth Vader, +1 (111) 111-1111");
-                yield return new TestCaseData(new Customer("Darth Vader", "+1 (111) 111-1111", 123456789), "PR", null).Returns("Customer record: +1 (111) 111-1111, 123,456,789.00");
-                yield return new TestCaseData(new Customer("Darth Vader", "+1 (111) 111-1111", 123456789), "N", null).Returns("Customer record: Darth Vader");
-                yield return new TestCaseData(new Customer("Darth Vader", "+1 (111) 111-1111", 123456789), "R", null).Returns("Customer record: 123456789");
-                yield return new TestCaseData(new Customer("Darth Vader", "+1 (111) 111-1111", 123456789), "P", null).Returns("Customer record: +1 (111) 111-1111");
-                yield return new TestCaseData(new Customer("Darth Vader", "+1 (111) 111-1111", 123456789), "it doesn't mean",  formatter).Returns(", , +1 (111) 111 11 11");
+                yield return new TestCaseData(new Customer("Darth Vader", "+1 (111) 111-1111", 123456789), null).Returns("Customer record: Darth Vader, 123,456,789.00, +1 (111) 111-1111");
+                yield return new TestCaseData(new Customer("Darth Vader", "+1 (111) 111-1111", 123456789), "NRP").Returns("Customer record: Darth Vader, 123,456,789.00, +1 (111) 111-1111");
+                yield return new TestCaseData(new Customer("Darth Vader", "+1 (111) 111-1111", 123456789), "NR").Returns("Customer record: Darth Vader, 123,456,789.00");
+                yield return new TestCaseData(new Customer("Darth Vader", "+1 (111) 111-1111", 123456789), "NP").Returns("Customer record: Darth Vader, +1 (111) 111-1111");
+                yield return new TestCaseData(new Customer("Darth Vader", "+1 (111) 111-1111", 123456789), "PR").Returns("Customer record: +1 (111) 111-1111, 123,456,789.00");
+                yield return new TestCaseData(new Customer("Darth Vader", "+1 (111) 111-1111", 123456789), "N").Returns("Customer record: Darth Vader");
+                yield return new TestCaseData(new Customer("Darth Vader", "+1 (111) 111-1111", 123456789), "R").Returns("Customer record: 123456789");
+                yield return new TestCaseData(new Customer("Darth Vader", "+1 (111) 111-1111", 123456789), "P").Returns("Customer record: +1 (111) 111-1111");
+            }
+        }
+
+        public IEnumerable<TestCaseData> TestMethodCallsWithCustomFormatter
+        {
+            get
+            {
+                yield return new TestCaseData(new Customer("Darth Vader", "+1 (111) 111-1111", 123456789), formatter, "none", "none", "phone").Returns("  +1 (111) 111 11 11");
+                yield return new TestCaseData(new Customer("Darth Vader", "+1 (111) 111-1111", 123456789), formatter, "upper", "none", "phone").Returns("DARTH VADER  +1 (111) 111 11 11");
+                yield return new TestCaseData(new Customer("Darth Vader", "+1 (111) 111-1111", 123456789), null, null, null, null).Throws(typeof(ArgumentNullException));
             }
         }
 
         [Test, TestCaseSource(nameof(TestMethodCalls))]
-        public string ToString_StringOfCertainFormat(Customer current, string format, IFormatProvider provider)
+        public string ToString_StringOfCertainFormat(Customer current, string format)
         {
-            Debug.WriteLine(current.ToString(format, provider));
-            return current.ToString(format, provider);
+            Debug.WriteLine(current.ToString(format));
+            return current.ToString(format);
         }
+
+        [Test, TestCaseSource(nameof(TestMethodCallsWithCustomFormatter))]
+        public string ToString_StringOfCertainCustomFormat(Customer current, IFormatProvider provider, string formatForName, string formatForRevenue, string formatForContactPhone)
+        {
+            Debug.WriteLine(current.ToString(provider, formatForName, formatForRevenue, formatForContactPhone));
+            return current.ToString(provider, formatForName, formatForRevenue, formatForContactPhone);
+        }
+
     }
 
     public class CustomerFormatter : IFormatProvider, ICustomFormatter
@@ -58,19 +75,24 @@ namespace WorkingWithCustomerClassNUnitTests
                     format = "none";
                 string customerString = arg.ToString();
                 format = format.ToUpper();
-                customerString = customerString.Replace(" ", "");
-                customerString = customerString.Replace("-", "");
-                customerString = customerString.Replace("(", "");
-                customerString = customerString.Replace(")", "");
                 switch (format)
                 {
                     case "PHONE":
-                        return customerString.Substring(0, 2) + " (" + customerString.Substring(2, 3) + ") " + customerString.Substring(5, 3) + " " + customerString.Substring(8, 2) + " " + customerString.Substring(10, 2);
+                    {
+                            customerString = customerString.Replace(" ", "");
+                            customerString = customerString.Replace("-", "");
+                            customerString = customerString.Replace("(", "");
+                            customerString = customerString.Replace(")", "");
+                            return customerString.Substring(0, 2) + " (" + customerString.Substring(2, 3) + ") " +
+                               customerString.Substring(5, 3) + " " + customerString.Substring(8, 2) + " " +
+                               customerString.Substring(10, 2);
+                    }
                     case "NONE":
                         return "";
+                    case "UPPER":
+                        return customerString.ToUpper();
                     default:
-                        throw new FormatException(
-                                  String.Format("The '{0}' format specifier is not supported.", format));
+                        throw new FormatException(String.Format("The '{0}' format specifier is not supported.", format));
                 }
             }
         }

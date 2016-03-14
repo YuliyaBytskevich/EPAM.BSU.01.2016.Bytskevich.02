@@ -17,7 +17,7 @@ namespace IntegerExtensionMethodsNUnitTests
         [TestCase(-123456789, Result = "FFFFFFFFF8A432EB")]
         [TestCase(Int64.MaxValue, Result = "7FFFFFFFFFFFFFFF")]
         [TestCase(Int64.MinValue, Result = "8000000000000000")]
-        public string ToHexFormatString_FromNumber(Int64 number)
+        public string ToHexString_FromNumber(Int64 number)
         {
             return number.ToHexFormatString();
         }
