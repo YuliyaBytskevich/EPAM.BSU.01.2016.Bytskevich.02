@@ -11,6 +11,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IntegerExtensionMethods", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IntegerExtensionMethodsNUnitTests", "IntegerExtensionMethodsNUnitTests\IntegerExtensionMethodsNUnitTests.csproj", "{B175CF92-91A6-43BE-94F4-075E2BF07AD0}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WorkingWithCustomerClass", "WorkingWithCustomerClass\WorkingWithCustomerClass.csproj", "{537A77F3-C6BD-4B08-9AE8-C2338B7B83E9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WorkingWithCustomerClassNUnitTests", "WorkingWithCustomerClassNUnitTests\WorkingWithCustomerClassNUnitTests.csproj", "{ABEA16E8-AAF0-4D09-94D6-3C4DE57CF98B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +37,14 @@ Global
 		{B175CF92-91A6-43BE-94F4-075E2BF07AD0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B175CF92-91A6-43BE-94F4-075E2BF07AD0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B175CF92-91A6-43BE-94F4-075E2BF07AD0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{537A77F3-C6BD-4B08-9AE8-C2338B7B83E9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{537A77F3-C6BD-4B08-9AE8-C2338B7B83E9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{537A77F3-C6BD-4B08-9AE8-C2338B7B83E9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{537A77F3-C6BD-4B08-9AE8-C2338B7B83E9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ABEA16E8-AAF0-4D09-94D6-3C4DE57CF98B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ABEA16E8-AAF0-4D09-94D6-3C4DE57CF98B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ABEA16E8-AAF0-4D09-94D6-3C4DE57CF98B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ABEA16E8-AAF0-4D09-94D6-3C4DE57CF98B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
