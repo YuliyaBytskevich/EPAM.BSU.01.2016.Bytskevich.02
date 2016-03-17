@@ -7,9 +7,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CalculatingGCD", "Calculati
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CalculatingGCDTests", "CalculatingGCDTests\CalculatingGCDTests.csproj", "{16B3B0D9-69A1-44AB-AF1E-6B3F4BC164AC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IntegerExtensionMethods", "IntegerExtensionMethods\IntegerExtensionMethods.csproj", "{2256396F-6F66-4386-A7FF-C9A6F0D464E2}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HexFormatProviderForInteger", "IntegerExtensionMethods\HexFormatProviderForInteger.csproj", "{2256396F-6F66-4386-A7FF-C9A6F0D464E2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IntegerExtensionMethodsNUnitTests", "IntegerExtensionMethodsNUnitTests\IntegerExtensionMethodsNUnitTests.csproj", "{B175CF92-91A6-43BE-94F4-075E2BF07AD0}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HexFormatProviderForIntegerNUnitTests", "IntegerExtensionMethodsNUnitTests\HexFormatProviderForIntegerNUnitTests.csproj", "{B175CF92-91A6-43BE-94F4-075E2BF07AD0}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WorkingWithCustomerClass", "WorkingWithCustomerClass\WorkingWithCustomerClass.csproj", "{537A77F3-C6BD-4B08-9AE8-C2338B7B83E9}"
 EndProject

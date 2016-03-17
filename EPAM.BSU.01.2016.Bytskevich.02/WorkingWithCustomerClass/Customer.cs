@@ -7,7 +7,7 @@ using System.Globalization;
 
 namespace WorkingWithCustomerClass
 {
-    public class Customer
+    public class Customer: IFormattable
     {
         public string Name { get; set; }
         public string ContactPhone { get; set; }
@@ -22,41 +22,35 @@ namespace WorkingWithCustomerClass
 
         public override string ToString()
         {
-            return ToString("NRP"); 
+            return ToString("NRP", null); 
         }
 
-        public string ToString(string format)
+        public string ToString(string format, IFormatProvider provider)
         {
             if (String.IsNullOrEmpty(format))
                 format = "NRP";
             format = format.ToUpper();
+            if (provider == null)
+                provider = new CultureInfo("en-US");
             switch (format)
             {
                 case "NRP":
-                    return String.Format("Customer record: {0}, {1}, {2}", Name, Revenue.ToString("N2", new CultureInfo("en-US", false).NumberFormat), ContactPhone);
+                    return String.Format(provider, "{0:N}, {1:N2}, {2:P}", Name, Revenue, ContactPhone);
                 case "NR":
-                    return String.Format("Customer record: {0}, {1}", Name, Revenue.ToString("N2", new CultureInfo("en-US", false).NumberFormat));
+                    return String.Format(provider, "{0:N}, {1:N2}", Name, Revenue);
                 case "NP":
-                    return String.Format("Customer record: {0}, {1}", Name, ContactPhone);
+                    return String.Format(provider, "{0:N}, {1:P}", Name, ContactPhone);
                 case "PR":
-                    return String.Format("Customer record: {0}, {1}", ContactPhone, Revenue.ToString("N2", new CultureInfo("en-US", false).NumberFormat));
+                    return String.Format(provider, "{0:P}, {1:N2}", ContactPhone, Revenue);
                 case "P":
-                    return String.Format("Customer record: {0}", ContactPhone);
+                    return String.Format(provider, "{0:P}", ContactPhone);
                 case "N":
-                    return "Customer record: " + Name;
+                    return String.Format(provider, "{0:N}", Name);
                 case "R":
-                    return String.Format("Customer record: {0}", Revenue);
+                    return String.Format(provider, "{0:N2}", Revenue);
                 default:
                     throw new FormatException(String.Format("The '{0}' format specifier is not supported.", format));
             }
         }
-            
-        public string ToString(IFormatProvider provider, string formatForName, string formatForRevenue, string formatForContactPhone)
-        {
-            if (provider == null)
-                throw  new ArgumentNullException("Provider parameter must not be null. Or use another overloaded ToString() method");
-            return String.Format(provider, "{0:" + formatForName + "} {1:" + formatForRevenue + "} {2:" + formatForContactPhone +"}", Name, Revenue, ContactPhone);
-        }
-
     }
 }
